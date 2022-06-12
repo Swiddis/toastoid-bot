@@ -19,7 +19,11 @@ Currently, the implemented commands are:
 
 ### Installing
 
-The project runs in a docker container. After installing cloning and navigating to the repo, you can build the container with a specified tag using:
+You need to [create a discord bot](https://discord.com/developers) and save the token to `config.json`.
+
+The project runs in a docker container pulling code from this repository. Strictly speaking, you only need the `Dockerfile` and `config.json` in a directory to run it, the simplest way to do this is to clone the repo.
+
+After navigating to the directory with these files, you can build the container with a specified tag using:
 
 ```sh
 docker build -t toastoid .
