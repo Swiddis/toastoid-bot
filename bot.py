@@ -1,5 +1,5 @@
-import json
 import logging
+import os
 
 import discord
 from discord.ext import commands
@@ -7,11 +7,6 @@ from duckduckgo_search import ddg
 
 logging.basicConfig(level=logging.INFO)
 client = commands.Bot(command_prefix="-")
-
-
-def get_token():
-    with open('config.json', 'r') as config:
-        return json.loads(config.read())["token"]
 
 
 @client.event
@@ -33,4 +28,4 @@ async def g(ctx, *args):
 async def ping(ctx):
     await ctx.send("hi yes hello im not dead i think")
 
-client.run(get_token())
+client.run(os.environ["token"])

@@ -19,27 +19,27 @@ Currently, the implemented commands are:
 
 ### Installing
 
-You need to [create a discord bot](https://discord.com/developers) and save the token to `config.json`.
+You need to [create a discord bot](https://discord.com/developers) and note the token to use.
 
-The project runs in a docker container pulling code from this repository. Strictly speaking, you only need the `Dockerfile` and `config.json` in a directory to run it, the simplest way to do this is to clone the repo.
+The project runs in a docker container pulling code from this repository. Strictly speaking, you only need to copy `Dockerfile` to run it.
 
-After navigating to the directory with these files, you can build the container with a specified tag using:
+After downloading the dockerfile `Dockerfile`, you can build the image with the `toastoid` tag:
 
 ```sh
-docker build -t toastoid .
+docker build -t toastoid ./path/to/Dockerfile
 ```
 
-This will use the repository's Dockerfile to create a small linux environment (through [Alpine](https://alpinelinux.org/)) and automatically install Python, Discord.py, and additional dependencies.
+This will create a small linux environment (through [Alpine](https://alpinelinux.org/)) and automatically install Python, Discord.py, and additional dependencies.
 
 ### Executing program
 
-After setting up the container, simply run the image by tag and give it a name:
+After setting up the image, simply run it by tag. You need to supply a token through the environment argument.
 
 ```sh
-docker run --name toastoid toastoid
+docker run --name toastoid --env token=$DISCORD_BOT_TOKEN toastoid
 ```
 
-You can stop it by the name it was started under:
+You can stop the bot by the name it was started under:
 
 ```sh
 docker stop toastoid
@@ -47,4 +47,4 @@ docker stop toastoid
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE file for details
