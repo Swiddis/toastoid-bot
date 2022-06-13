@@ -1,0 +1,17 @@
+version: '3.2'
+
+services:
+  toastoid:
+    image: toastoid
+    build: .
+    volumes:
+      - ./toastoid-store:/app/store
+    secrets:
+      - token
+
+volumes:
+  toastoid-store:
+
+secrets:
+  token:
+    file: ./token.txt

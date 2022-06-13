@@ -2,14 +2,17 @@ import logging
 import os
 import queue
 import urllib.parse
-from requests.exceptions import ReadTimeout
 
 import discord
 from discord.ext import commands
+from requests.exceptions import ReadTimeout
+
+import kval
 from ddg import ddg
 
 logging.basicConfig(level=logging.INFO)
 client = commands.Bot(command_prefix="-")
+kvdb = kval.KValDb()
 
 
 @client.event
@@ -34,7 +37,20 @@ async def g(ctx, *args):
 
 
 @client.command()
+async def kv(ctx, op, key, *args):
+    output = 'Invalid Command'
+    if op == 'set':
+        kvdb.set_item(key, ' '.join(args))
+        output = f"Set key {key}"
+    elif op == 'get':
+        items = kvdb.get_item(key)
+        output = items[0] if items else "Key does not exist"
+    await ctx.send(output)
+
+
+@client.command()
 async def ping(ctx):
     await ctx.send("hi yes hello im not dead i think")
 
-client.run(os.environ["token"])
+with open('/run/secrets/token', 'r') as token_file:
+    client.run(token_file.read())
