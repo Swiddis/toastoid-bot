@@ -14,7 +14,6 @@ Currently, the implemented commands are:
 
 ### Dependencies
 
-* [Git](https://git-scm.com/)
 * [Docker](https://www.docker.com/)
 
 ### Installing
