@@ -1,8 +1,8 @@
-# syntax=docker/dockerfile:1
-FROM alpine
-WORKDIR /app
-RUN apk add python3 py3-pip git
+FROM alpine/git AS git
+RUN git clone --depth 1 https://github.com/Swiddis/toastoid-bot.git /toastoid-bot
+
+FROM python:3.9-alpine
 RUN python3 -m pip install discord.py requests
-RUN git clone https://github.com/Swiddis/toastoid-bot.git .
-ENV token=
-CMD ["python3", "bot.py"]
+WORKDIR /app
+COPY --from=git toastoid-bot .
+CMD python3 bot.py
