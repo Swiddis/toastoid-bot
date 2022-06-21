@@ -30,7 +30,7 @@ async def g(ctx, *args):
             await ctx.send("No results (likely due to API error)")
             return
         for i, result in enumerate(results, 1):
-            output += f"{i}. {result['title']} (<{result['href']}>)\n> {result['body']}\n"
+            output += f"{i}. {result['title']} (<{result['href']}>)n> {result['body']}n"
         await ctx.send(output)
     except ReadTimeout:
         await ctx.send("Timed out while waiting for results")
@@ -45,10 +45,12 @@ async def kv(ctx, op, key, *args):
     elif op == 'get':
         items = lsdb.get_entries(ctx.author.id, key)
         if len(items) > 0:
-            output = f"List `{key}`:\n"
+            output = f"List `{key}`: ```d\n"
             for i, item in enumerate(items, 1):
                 output += f"{i}. {item}\n"
+            output+= "```\n "
             output = output.strip()
+
         else:
             output = f"List `{key}` does not exist."
     await ctx.send(output)
