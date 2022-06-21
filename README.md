@@ -23,12 +23,11 @@ Currently, the implemented commands are:
 
 You need to [create a discord bot](https://discord.com/developers) and store the token in a `token.txt` file.
 
-The project runs as a composed docker container using a local volume and pulling code from this repository. Strictly speaking you only need the docker files and a `token.txt` file in the same directory. That is, the directory structure should look like:
+The project runs as a composed docker container using a local volume. You need the code and a `token.txt` file in the same directory. That is, the directory structure should look like:
 
 ```
-toastoid
-- docker-compose.yml
-- Dockerfile
+toastoid-bot
+- [the repository files]
 - token.txt
 ```
 
