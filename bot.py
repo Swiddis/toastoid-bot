@@ -30,7 +30,7 @@ async def g(ctx, *args):
             await ctx.send("No results (likely due to API error)")
             return
         for i, result in enumerate(results, 1):
-            output += f"{i}. {result['title']} (<{result['href']}>)n> {result['body']}n"
+            output += f"{i}. {result['title']} (<{result['href']}>)\n> {result['body']}\n"
         await ctx.send(output)
     except ReadTimeout:
         await ctx.send("Timed out while waiting for results")
