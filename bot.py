@@ -48,9 +48,8 @@ async def kv(ctx, op, key, *args):
             output = f"List `{key}`: ```d\n"
             for i, item in enumerate(items, 1):
                 output += f"{i}. {item}\n"
-            output+= "```\n "
+            output += "```\n "
             output = output.strip()
-
         else:
             output = f"List `{key}` does not exist."
     await ctx.send(output)
