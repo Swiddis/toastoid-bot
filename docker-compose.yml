@@ -4,13 +4,28 @@ services:
   toastoid:
     image: toastoid
     build: .
-    volumes:
-      - ./toastoid-store:/app/store
+    environment:
+      - MONGODB_CONNSTRING=mongodb://root:toastoid@mongodb
+    networks:
+      - toastnet
     secrets:
       - token
+  mongodb:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=toastoid
+    volumes:
+      - mongodbdata:/data/db
+    networks:
+      - toastnet
 
 volumes:
-  toastoid-store:
+  mongodbdata:
+
+networks:
+  toastnet:
+    name: toastnet
 
 secrets:
   token:

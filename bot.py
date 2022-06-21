@@ -7,12 +7,12 @@ import discord
 from discord.ext import commands
 from requests.exceptions import ReadTimeout
 
-import kval
+import listdb
 from ddg import ddg
 
 logging.basicConfig(level=logging.INFO)
 client = commands.Bot(command_prefix="-")
-kvdb = kval.KValDb()
+lsdb = listdb.ListDb()
 
 
 @client.event
@@ -39,12 +39,18 @@ async def g(ctx, *args):
 @client.command()
 async def kv(ctx, op, key, *args):
     output = 'Invalid Command'
-    if op == 'set':
-        kvdb.set_item(key, ' '.join(args))
-        output = f"Set key {key}"
+    if op == 'add':
+        lsdb.add_entry(ctx.author.id, key, ' '.join(args))
+        output = f"Added to list `{key}`."
     elif op == 'get':
-        items = kvdb.get_item(key)
-        output = items[0] if items else "Key does not exist"
+        items = lsdb.get_entries(ctx.author.id, key)
+        if len(items) > 0:
+            output = f"List `{key}`:\n"
+            for i, item in enumerate(items, 1):
+                output += f"{i}. {item}\n"
+            output = output.strip()
+        else:
+            output = f"List `{key}` does not exist."
     await ctx.send(output)
 
 
@@ -52,5 +58,11 @@ async def kv(ctx, op, key, *args):
 async def ping(ctx):
     await ctx.send("hi yes hello im not dead i think")
 
+
+@client.command()
+async def echo(ctx, *args):
+    await ctx.send(f"{' '.join(args)}")
+
 with open('/run/secrets/token', 'r') as token_file:
-    client.run(token_file.read())
+    token = token_file.read()
+client.run(token)
