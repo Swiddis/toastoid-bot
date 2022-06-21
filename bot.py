@@ -45,7 +45,7 @@ async def kv(ctx, op, key, *args):
     elif op == 'get':
         items = lsdb.get_entries(ctx.author.id, key)
         if len(items) > 0:
-            output = f"List `{key}`: ```d\n"
+            output = f"List `{key}`: ```md\n"
             for i, item in enumerate(items, 1):
                 output += f"{i}. {item}\n"
             output += "```\n "
